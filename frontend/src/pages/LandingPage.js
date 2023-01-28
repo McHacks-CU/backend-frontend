@@ -77,7 +77,7 @@ const LandingPage = () => {
           <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only"></span>
                 <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
               </a>
               <button
@@ -132,7 +132,7 @@ const LandingPage = () => {
                 Identify and Prevent SQL Security Issues
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-200">
-                Paste your SQL code into our textfield and see your code's vulnerabilities
+                Paste your backend code into our text-field and we will help you determine if your login is safe
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a

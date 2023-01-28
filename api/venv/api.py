@@ -1,10 +1,15 @@
 import time
-from flask import Flask
+from flask import Flask, request, render_template
+
 
 app = Flask(__name__)
 
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
-
-# flask route that is called on form completion that takes in form data
+@app.route('/form', methods=['GET', 'POST'])
+def form_example():
+    # handle the POST request
+    if request.method == 'POST':
+        language = request.form.get('code')
+        print(code)
+        return '''The code sent to the backend is: {}'''.format(code)
+    # handle get request
+    return '''ERROR : 404, only POST req allowed or service not available'''

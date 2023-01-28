@@ -9,14 +9,31 @@
       // ...
       require('@tailwindcss/forms'),
     ],
-  }
+  };
   ```
 */
 const Form =() => {
+  // code into form
+  // form data is sent when submit button clicked
+  // return message to be inserted into html
+  function onSubmit(e) {
+    e.preventDefault();
+
+    fetch('/form', {
+        method: 'POST',
+        body: e,
+        headers: {
+            'Accept': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/x-www-form-urlencoded	'
+        },
+    });
+    var data = Response.json();
+    console.log(data);
+  }
   return (
     <div id="form" className="h-screen bg-gray-800 flex flex-row">
           <div className="mt-5 md:col-span-2 md:mt-0 flex-auto">
-            <form action="/form" method="POST">
+            <form action="" onSubmit={onSubmit} method="POST">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 bg-gray-800 px-4 py-5 sm:p-6">
                   <div>

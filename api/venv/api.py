@@ -11,5 +11,7 @@ def form_example():
         language = request.form.get('code')
         print(code)
         return '''The code sent to the backend is: {}'''.format(code)
+        # return '''Your code is vulerable to sql injection {}'''.format(code)
+
     # handle get request
     return '''ERROR : 404, only POST req allowed or service not available'''

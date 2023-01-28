@@ -1,9 +1,9 @@
-// import './App.css';
-// import ReactDOM from "react-dom/client";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Layout from './pages/Layout';
-// import LandingPage from './pages/LandingPage';
-// import GetStarted from './pages/GetStarted';
+import './App.css';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from './pages/Layout';
+import LandingPage from './pages/LandingPage';
+import GetStarted from './pages/GetStarted';
 
 // function App() {
 //   return (
@@ -20,7 +20,10 @@
 // export default App;
 function App() {
   return (
-    <LandingPage />
+    <>
+      <LandingPage />
+      <GetStarted />
+    </>
   );
 }
 

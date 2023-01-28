@@ -3,33 +3,43 @@ from cohere.classify import Example
 from dotenv import dotenv_values
 import pandas as pd
 
-def classify_text(text,examples):
+examples = generateList()
+
+def generateList():
+  config = dotenv_values(".env")  
+
+  co = cohere.Client(config.get("API_KEY"))
+
+  df = pd.read_csv('dataset.csv',names=['query','intent'])
+
+  X, y = df["query"], df["intent"]
+  intents = y.unique().tolist()
+
+  ex_texts, ex_labels = [], []
+  for intent in intents:
+    y_temp = y[y == intent]
+    sample_indexes = y_temp.sample(n=int(len(X)/2), random_state=42).index
+    ex_texts += X[sample_indexes].tolist()
+    ex_labels += y[sample_indexes].tolist()
+
+  generated_examples = list()
+
+  for txt, lbl in zip(ex_texts,ex_labels):
+    generated_examples.append(Example(txt,lbl))
+
+  return generated_examples
+
+
+def classify_text(text):
+
   classifications = co.classify(
     model='large',
     inputs=[text],
     examples=examples
-    )
+  )
+
   return classifications.classifications[0].prediction
-
-config = dotenv_values(".env")  
-
-co = cohere.Client(config.get("API_KEY"))
-
-df = pd.read_csv('dataset.csv',names=['query','intent'])
-
-X, y = df["query"], df["intent"]
-intents = y.unique().tolist()
-
-ex_texts, ex_labels = [], []
-for intent in intents:
-  y_temp = y[y == intent]
-  sample_indexes = y_temp.sample(n=int(len(X)/2), random_state=42).index
-  ex_texts += X[sample_indexes].tolist()
-  ex_labels += y[sample_indexes].tolist()
-
-examples = list()
-for txt, lbl in zip(ex_texts,ex_labels):
-  examples.append(Example(txt,lbl))
+  
 
 print(classify_text('''import mysql.connector
 

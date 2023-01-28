@@ -45,10 +45,10 @@ const LandingPage = () => {
       <div className="px-6 pt-6 lg:px-8">
         <nav className="flex items-center justify-between" aria-label="Global">
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+            {/* <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-            </a>
+            </a> */}
           </div>
           <div className="flex lg:hidden">
             <button
@@ -76,10 +76,10 @@ const LandingPage = () => {
         <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
+              {/* <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-              </a>
+              </a> */}
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -136,11 +136,12 @@ const LandingPage = () => {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
+                  href="#form"
                   className="rounded-md bg-indigo-400 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Get started
                 </a>
-                <a href="#" className="text-base font-semibold leading-7 text-gray-900">
+                <a href="#" className="text-base font-semibold leading-7 text-slate-200">
                   How we do it <span aria-hidden="true">→</span>
                 </a>
               </div>
@@ -174,7 +175,6 @@ const LandingPage = () => {
           </div>
         </div>
       </main>
-      {/* <Outlet /> */}
     </div>
   );
 };

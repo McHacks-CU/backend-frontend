@@ -1,8 +1,8 @@
 import './App.css';
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import ReactDOM from "react-dom/client";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
-import GetStarted from './pages/GetStarted';
+import Form from './pages/Form';
 
 // function App() {
 //   return (
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <LandingPage />
-      <GetStarted />
+      <Form />
     </>
   );
 }

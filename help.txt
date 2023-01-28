@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/18713086/virtualenv-wont-activate-on-windows
+https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project 

@@ -34,11 +34,11 @@ const Form =() => {
     .then((data) => console.log(data));;
   }
   return (
-    <div id="form" className="h-screen bg-gray-800 flex flex-row">
+    <div id="form" className="h-screen bg-neutral-800 flex flex-row">
           <div className="mt-5 md:col-span-2 md:mt-0 flex-auto">
             <form action="" onSubmit={onSubmit} method="POST">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6 bg-gray-800 px-4 py-5 sm:p-6">
+                <div className="space-y-6 px-4 py-5 sm:p-6">
                   <div>
                     <label htmlFor="code" className="block text-sm font-medium text-gray-700">
                     </label>
@@ -51,18 +51,18 @@ const Form =() => {
                         placeholder="Paste here"
                         defaultValue={''}
                       /> */}
-                      <label htmlFor="usernameInput">Username:</label>
-                      <textarea id="usernameInput" rows={20} defaultValue={''} placeholder="Paste here" className="mt-1 block w-full rounded-md bg-gray-600 border-indigo-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-slate-200" type="text" />
+                      <label htmlFor="usernameInput" className="text-slate-200">Input</label>
+                      <textarea id="usernameInput" rows={20} defaultValue={''} placeholder="Paste here" className="mt-1 block w-full rounded-md bg-neutral-800 border-slate-200 shadow-sm focus:border-red-300 focus:ring-red-300 sm:text-sm text-slate-200" type="text" />
                     </div>
                   </div>
 
                   
                   
                 </div>
-                <div className="bg-gray-800 px-4 py-3 text-right sm:px-6">
+                <div className="px-4 py-3 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                   >
                     Analyze
                   </button>

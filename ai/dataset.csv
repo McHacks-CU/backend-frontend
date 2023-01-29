@@ -1,0 +1,427 @@
+"String query = ""SELECT account_balance FROM user_data WHERE user_name = ""
+             + request.getParameter(""customerName"");
+try {
+    Statement statement = connection.createStatement( ... );
+    ResultSet results = statement.executeQuery( query );
+}",unsafe
+"string userName = ctx.getAuthenticatedUserName();
+string query = ""SELECT * FROM items WHERE owner = ""'""
+                + userName + ""' AND itemname = '""
+                + ItemName.Text + ""'"";",unsafe
+"$username = $_POST['username'];
+$password = $_POST['password'];
+$sql = ""SELECT * FROM users WHERE username = '$username' AND password = '$password'"";
+$result = mysqli_query($conn, $sql);",unsafe
+"Query HQLQuery = session.createQuery(""from Inventory where productID='""+userSuppliedParameter+""'""); ",unsafe
+"String query = ""SELECT user_id FROM user_data WHERE user_name = '""
+              + req.getParameter(""userID"")
+              + ""' and user_password = '"" + req.getParameter(""pwd"") +""'"";
+try {
+    Statement statement = connection.createStatement( … );
+    ResultSet results = statement.executeQuery( query );
+}",unsafe
+"sql = ""SELECT id FROM users WHERE username='"" + user + ""' AND password='"" + pass + ""'""",unsafe
+"String custname = request.getParameter(""customerName"");
+String query = ""SELECT account_balance FROM user_data WHERE user_name = ? "";
+PreparedStatement pstmt = connection.prepareStatement( query );
+pstmt.setString( 1, custname);
+ResultSet results = pstmt.executeQuery( );",safe
+"String query = ""SELECT account_balance FROM user_data WHERE user_name = ?"";
+try {
+  OleDbCommand command = new OleDbCommand(query, connection);
+  command.Parameters.Add(new OleDbParameter(""customerName"", CustomerName Name.Text));
+  OleDbDataReader reader = command.ExecuteReader();
+  // …
+} catch (OleDbException se) {
+  // error handling
+}",safe
+"Query HQLQuery = session.createQuery(""from Inventory where productID=:productid""); 
+HQLQuery.setParameter(""productid"", userSuppliedParameter);",safe
+"String custname = request.getParameter(""customerName"");
+try {
+  CallableStatement cs = connection.prepareCall(""{call sp_getAccountBalance(?)}"");
+  cs.setString(1, custname);
+  ResultSet results = cs.executeQuery();
+  // … result set handling
+} catch (SQLException se) {
+  // … logging and error handling
+}",safe
+"Try
+   Dim command As SqlCommand = new SqlCommand(""sp_getAccountBalance"", connection)
+   command.CommandType = CommandType.StoredProcedure
+   command.Parameters.Add(new SqlParameter(""@CustomerName"", CustomerName.Text))
+   Dim reader As SqlDataReader = command.ExecuteReader()
+   '...
+ Catch se As SqlException
+   'error handling
+ End Try",safe
+"Codec ORACLE_CODEC = new OracleCodec();
+String query = ""SELECT user_id FROM user_data WHERE user_name = '""
++ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
++ ""' and user_password = '""
++ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";",safe
+"query = ""SELECT * FROM users WHERE username = '"" + username + ""' AND password = '"" + password + ""'""
+",unsafe
+"import mysql.connector
+
+db = mysql.connector.connect(
+    host=""example.com"",
+    user=""username"",
+    password=""password"",
+    database=""database""
+)
+
+cursor = db.cursor()
+
+sql = ""INSERT INTO employees (first_name, last_name) VALUES (%s, %s)""
+val = (""John"", ""Doe"")
+
+cursor.execute(sql, val)
+
+db.commit()
+
+cursor.close()
+db.close()",safe
+"import mysql.connector
+
+db = mysql.connector.connect(
+    host=""example.com"",
+    user=""username"",
+    password=""password"",
+    database=""database""
+)
+
+cursor = db.cursor()
+
+first_name = ""John""
+last_name = ""Doe""
+sql = ""INSERT INTO employees (first_name, last_name) VALUES ('"" + first_name + ""', '"" + last_name + ""')""
+
+cursor.execute(sql)
+
+db.commit()
+
+cursor.close()
+db.close()
+",unsafe
+"const { Pool } = require('pg')
+
+const pool = new Pool({
+  user: 'username',
+  host: 'host',
+  database: 'database',
+  password: 'password',
+  port: 5432,
+})
+
+const query = 'SELECT * FROM users WHERE username = $1 AND password = $2'
+
+const values = ['user', 'password']
+
+pool.query(query, values, (error, result) => {
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(result.rows)
+  }
+})
+",safe
+"const sql = require('mssql')
+
+const config = {
+    user: 'username',
+    password: 'password',
+    server: 'host',
+    database: 'database'
+}
+
+const username = ""user""
+const password = ""password""
+
+const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`
+
+sql.connect(
+",unsafe
+"const mysql = require('mysql2/promise');
+
+async function getUser(username, password) {
+    try {
+        const connection = await mysql.createConnection({
+            host: 'host',
+            user: 'username',
+            password: 'password',
+            database: 'database'
+        });
+
+        const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ? AND password = ?', [username, password]);
+
+        connection.end();
+
+        return rows;
+    } catch (e) {
+        console.log(e);
+    }
+}
+",safe
+"const mysql = require('mysql2');
+
+function getUser(username, password) {
+    const connection = mysql.createConnection({
+        host: 'host',
+        user: 'username',
+        password: 'password',
+        database: 'database'
+    });
+
+    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+
+    connection.query(query, function (error, results) {
+        if (error) throw error;
+        return results;
+    });
+
+    connection.end();
+}
+",unsafe
+"// Import the necessary modules
+const mysql = require('mysql');
+
+// Create a connection pool
+const pool = mysql.createPool({
+  host: 'host',
+  user: 'username',
+  password: 'password',
+  database: 'database'
+});
+
+// Define the user input
+const username = 'user';
+const password = 'password';
+
+// Use a template literal to insert the user input into the query
+const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+
+// Execute the query using a prepared statement
+pool.query(query, (error, results) => {
+  if (error) throw error;
+
+  console.log(results);
+});",safe
+"const mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: ""host"",
+  user: ""username"",
+  password: ""password"",
+  database: ""database""
+});
+
+var user = req.query.username;
+var pass = req.query.password;
+
+var sql = ""SELECT * FROM users WHERE username = '"" + user + ""' AND password = '"" + pass + ""'"";
+
+con.query(sql, function (err, result) {
+  if (err) throw err;
+  console.log(result);
+});",unsafe
+"<?php
+$conn = new PDO(""mysql:host=host;dbname=database"", ""username"", ""password"");
+$stmt = $conn->prepare(""SELECT * FROM users WHERE username = :username AND password = :password"");
+$stmt->bindParam(':username', $username);
+$stmt->bindParam(':password', $password);
+$username = $_POST['username'];
+$password = $_POST['password'];
+$stmt->execute();
+$results = $stmt->fetchAll();
+",safe
+"<?php
+$conn = new mysqli(""host"", ""username"", ""password"", ""database"");
+$username = $_POST['username'];
+$password = $_POST['password'];
+$sql = ""SELECT * FROM users WHERE username = '$username' AND password = '$password'"";
+$result = $conn->query($sql);
+",unsafe
+"<?php
+
+$conn = new PDO(""mysql:host=host;dbname=database"", ""username"", ""password"");
+
+$query = ""SELECT * FROM users WHERE username = :username AND password = :password"";
+$stmt = $conn->prepare($query);
+
+$stmt->bindParam(':username', $username);
+$stmt->bindParam(':password', $password);
+
+$username = ""user"";
+$password = ""password"";
+
+$stmt->execute();
+$result = $stmt->fetchAll();
+
+$conn = null;
+
+?>
+",safe
+"<?php
+
+$conn = new mysqli(""host"", ""username"", ""password"", ""database"");
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$query = ""SELECT * FROM users WHERE username = '$username' AND password = '$password'"";
+
+$result = $conn->query($query);
+
+$conn->close();
+
+?>
+",unsafe
+"#include <stdio.h>
+#include <stdlib.h>
+#include <mysql/mysql.h>
+
+int main(int argc, char *argv[]) {
+    MYSQL *conn;
+    MYSQL_STMT *stmt;
+    MYSQL_BIND param[2];
+    char username[20];
+    char password[20];
+    char query[] = ""SELECT * FROM users WHERE username = ? AND password = ?"";
+
+    conn = mysql_init(NULL);
+
+    mysql_real_connect(conn, ""host"", ""username"", ""password"", ""database"", 0, NULL, 0);
+
+    stmt = mysql_stmt_init(conn);
+    mysql_stmt_prepare(stmt, query, strlen(query));
+
+    memset(param, 0, sizeof(param));
+    param[0].buffer_type = MYSQL_TYPE_STRING;
+    param[0].buffer = username;
+    param[0].buffer_length = sizeof(username);
+    param[1].buffer_type = MYSQL_TYPE_STRING;
+    param[1].buffer = password;
+    param[1].buffer_length = sizeof(password);
+    mysql_stmt_bind_param(stmt, param);
+
+    strcpy(username, ""user"");
+    strcpy(password, ""password"");
+
+    mysql_stmt_execute(stmt);
+
+    mysql_stmt_close(stmt);
+    mysql_close(conn);
+
+    return 0;
+}
+",safe
+"#include <stdio.h>
+#include <stdlib.h>
+#include <mysql/mysql.h>
+
+int main(int argc, char *argv[]) {
+    MYSQL *conn;
+    char query[255];
+    char username[20];
+    char password[20];
+
+    printf(""Enter username: "");
+    scanf(""%s"", username);
+    printf(""Enter password: "");
+    scanf(""%s"", password);
+
+    sprintf(query, ""SELECT * FROM users WHERE username = '%s' AND password = '%s'"", username, password);
+
+    conn = mysql_init(NULL);
+
+    mysql_real_connect(conn, ""host"", ""username"", ""password"", ""database"", 0, NULL, 0);
+
+    mysql_query(conn, query);
+
+    mysql_close(conn);
+
+    return 0;
+}
+",unsafe
+"#include <stdio.h>
+#include <stdlib.h>
+#include <mysql/mysql.h>
+
+int main(int argc, char *argv[]) {
+   MYSQL *conn;
+   MYSQL_STMT *stmt;
+   MYSQL_BIND param[2];
+   int status;
+   char username[20], password[20];
+
+   conn = mysql_init(NULL);
+   mysql_real_connect(conn, ""host"", ""username"", ""password"", ""database"", 0, NULL, 0);
+
+   stmt = mysql_stmt_init(conn);
+   mysql_stmt_prepare(stmt, ""SELECT * FROM users WHERE username = ? AND password = ?"", strlen(""SELECT * FROM users WHERE username = ? AND password = ?""));
+
+   memset(param, 0, sizeof(param));
+   param[0].buffer_type = MYSQL_TYPE_STRING;
+   param[0].buffer = (char *)username;
+   param[0].buffer_length = sizeof(username);
+   param[1].buffer_type = MYSQL_TYPE_STRING;
+   param[1].buffer = (char *)password;
+   param[1].buffer_length = sizeof(password);
+   mysql_stmt_bind_param(stmt, param);
+
+   strcpy(username, ""user"");
+   strcpy(password, ""password"");
+
+   mysql_stmt_execute(stmt);
+   MYSQL_RES* result = mysql_store_result(conn);
+   mysql_stmt_close(stmt);
+   mysql_close(conn);
+   return 0;
+}
+",safe
+"#include <stdio.h>
+#include <stdlib.h>
+#include <mysql/mysql.h>
+
+int main(int argc, char *argv[]) {
+   MYSQL *conn;
+   char *query;
+   char username[20], password[20];
+
+   conn = mysql_init(NULL);
+   mysql_real_connect(conn, ""host"", ""username"", ""password"", ""database"", 0, NULL, 0);
+
+   strcpy(username, argv[1]);
+   strcpy(password, argv[2]);
+
+   asprintf(&query, ""SELECT * FROM users WHERE username = '%s' AND password = '%s'"", username, password);
+
+   mysql_query(conn, query);
+   MYSQL_RES* result = mysql_store_result(conn);
+
+   mysql_free_result(result);
+   mysql_close(conn);
+   return 0;
+}
+",unsafe
+"import mysql.connector
+
+user_input = input(""Enter a user ID: "")
+
+db = mysql.connector.connect(
+    host=""localhost"",
+    user=""root"",
+    password=""password"",
+    database=""mydatabase""
+)
+
+cursor = db.cursor()
+
+query = ""SELECT * FROM users WHERE id = %s""
+cursor.execute(query, (user_input,))
+
+result = cursor.fetchall()
+
+print(result)
+",safe

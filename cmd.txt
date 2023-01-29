@@ -10,7 +10,15 @@ set FLASK_APP=api.py
 $env:FLASK_APP = "api.py"
 flask run
 
+mac:
 
+cd api
+python3 -m venv env
+. env/bin/activate
+pip install Flask
+cd env
+export FLASK_APP=api.py
+flask run
 ------
 
 ai

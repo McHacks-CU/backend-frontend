@@ -2,15 +2,17 @@ import React, { useRef, useEffect } from "react";
 import Typed from "typed.js";
 
 const Typing = () => {
-
   const typeTarget = useRef(null);
 
   useEffect(() => {
     const typed = new Typed(typeTarget.current, {
-      strings: ["SELECT * FROM users WHERE username = '' OR '1'='1' AND password = 'whatever the password is';"],
+      strings: [
+        "Preventing injections before they occur",
+        "'SELECT * FROM users WHERE username = ? AND password = ?', [username, password]",
+      ],
       typeSpeed: 40,
       showCursor: false,
-      loop: true
+      loop: true,
     });
 
     return () => {

@@ -9,3 +9,11 @@ backend
 set FLASK_APP=main.py
 $env:FLASK_APP = "main.py"
 flask run
+
+
+------
+
+ai
+
+pip install dotenv
+pip install cohere

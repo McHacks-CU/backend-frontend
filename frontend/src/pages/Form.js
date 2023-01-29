@@ -74,7 +74,7 @@ const Form =() => {
             </form>
           </div>
           <div className="flex-auto text-white">
-            {output}
+            {JSON.stringify(output)}
           </div>
     </div>
   )

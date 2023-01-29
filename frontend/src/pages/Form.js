@@ -21,6 +21,7 @@ const Form = () => {
   // form data is sent when submit button clicked
   // return message to be inserted into html
   function onSubmit(event) {
+    event.currentTarget.elements.submit.innerHTML = "Sending...";
     event.preventDefault();
     console.log(event.currentTarget.elements.usernameInput.value);
     var data = event.currentTarget.elements.usernameInput.value;
@@ -37,6 +38,7 @@ const Form = () => {
     })
       .then((response) => response.json())
       .then((data) => setOutput(data.result));
+    event.currentTarget.elements.submit.innerHTML = "Send";
   }
   return (
     <div id="form" className="h-screen bg-neutral-800 flex flex-row">
@@ -75,9 +77,9 @@ const Form = () => {
             <div className="px-4 py-3 text-right sm:px-6">
               <button
                 type="submit"
+                id="submit"
                 className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-              >
-                Analyze
+                >Send
               </button>
             </div>
           </div>

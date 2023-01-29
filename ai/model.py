@@ -50,9 +50,9 @@ def initialize():
   for txt, lbl in zip(ex_texts,ex_labels):
       examples.append(Example(txt,lbl))
 
-# print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
-# String query = ""SELECT user_id FROM user_data WHERE user_name = '""
-# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
-# + ""' and user_password = '""
-# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
+print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
+String query = ""SELECT user_id FROM user_data WHERE user_name = '""
++ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
++ ""' and user_password = '""
++ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
 

@@ -26,10 +26,10 @@ def classify(code, nltk):
       examples=examples
     )
   if (classifications.classifications[0].prediction != classifications.classifications[1].prediction):
-    return "Tests are inconclusive, please enter mode code"
+    return "Tests are inconclusive, please enter mode code, or change your code to be more precise"
   elif (classifications.classifications[0].prediction == 'safe'):
     return "Your code is safe"
-  return "You code is unsafe, here are some ways you can try to fix your code: \n" + respond(code)
+  return "Your code is unsafe, here are some ways you can try to fix your code: \n" + respond(code)
   
 
 def initialize():

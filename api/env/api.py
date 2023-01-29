@@ -33,7 +33,6 @@ def form_example():
             if any(keyw in tokenized_sent for keyw in keywords):
                 need_to_check += str(sentence)
 
-        print(need_to_check)
         if (not need_to_check):
             need_to_check = text
 

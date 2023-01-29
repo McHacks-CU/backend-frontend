@@ -55,8 +55,8 @@ def initialize():
   for txt, lbl in zip(ex_texts,ex_labels):
       examples.append(Example(txt,lbl))
 
-print(classify('''String userInput = request.getParameter("user_id");
-String query = "SELECT * FROM users WHERE id = " + userInput;
-Statement stmt = conn.createStatement();
-ResultSet rs = stmt.executeQuery(query);
-'''))
+# print(classify('''String userInput = request.getParameter("user_id");
+# String query = "SELECT * FROM users WHERE id = " + userInput;
+# Statement stmt = conn.createStatement();
+# ResultSet rs = stmt.executeQuery(query);
+# '''))

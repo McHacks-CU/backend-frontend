@@ -1,9 +1,9 @@
-
 import cohere
 from cohere.classify import Example
 from dotenv import load_dotenv
 import pandas as pd
 import os
+from response import respond
 
 global init
 init = False
@@ -25,12 +25,14 @@ def classify(text):
       inputs=[text],
       examples=examples
     )
-  return (classifications.classifications[0].prediction == 'safe')
+  if (classifications.classifications[0].prediction == 'safe'):
+    return "Your code is safe"
+  return respond(text)
+  
 
 def initialize():
 
   load_dotenv()
-  print(os.getenv("API_KEY"))
 
   global co
   co = cohere.Client(os.getenv("API_KEY"))
@@ -53,9 +55,8 @@ def initialize():
   for txt, lbl in zip(ex_texts,ex_labels):
       examples.append(Example(txt,lbl))
 
-# print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
-# String query = ""SELECT user_id FROM user_data WHERE user_name = '""
-# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
-# + ""' and user_password = '""
-# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
-
+# print(classify('''String userInput = request.getParameter("user_id");
+# String query = "SELECT * FROM users WHERE id = " + userInput;
+# Statement stmt = conn.createStatement();
+# ResultSet rs = stmt.executeQuery(query);
+# '''))

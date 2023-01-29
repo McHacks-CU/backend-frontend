@@ -1,16 +1,12 @@
 import time
 from flask import Flask, request, render_template, jsonify
-import nltk
+import re
 
+from nltk import word_tokenize,sent_tokenize
 # some_file.py
 import sys
-<<<<<<< HEAD
-# caution: path[0] is reserved for script path (or '' in REPL)
-# sys.path.insert(1, '../ai')
-=======
 
 sys.path.insert(1, '../ai')
->>>>>>> main
 
 # from model import classify
 
@@ -23,20 +19,24 @@ def form_example():
         try:
             body = request.get_json()
             text = body['text']
-            print(text)
+            # print(text)
         except:
             return jsonify(result='ERROR : 400, bad request')
         # check code
-        print(text)
-        keywords = ["query", "execute", "WHERE"] # keywords identifying sql
-        para = text
-        sent_tokens = nltk.sent_tokenize(para)
-        for sentence in sent_text:
-            tokenized_sent = [word.lower() for word in word_tokenize(sent)]
+        # print(text)
+        keywords = ["query", "execute", "WHERE", "executeQuery", "statement"] # keywords identifying sql
+        sent_tokens = re.split(r'\n|;', text)
+        need_to_check = []
+        for sentence in sent_tokens:
+            tokenized_sent = [word.lower() for word in re.split(' ', sentence)]
+            print(tokenized_sent)
             # if any item in the tokenized sentence is a keyword, append the original sentence
             if any(keyw in tokenized_sent for keyw in keywords):
-                print(sentence)
+                need_to_check.append(sentence)
 
+        print("NLTK Keyword Identification : ")
+        for sentence in need_to_check:
+            print(sentence)
                 
         # fileinF = []
         # for sent in fileinE:

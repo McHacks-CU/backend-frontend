@@ -6,6 +6,7 @@
 # flask
 venv
 __pycache__
+/api/venv/pyvenv.cfg
 
 # dependencies
 /frontend/node_modules

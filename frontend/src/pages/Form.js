@@ -13,9 +13,7 @@
   ```
 */
 import { useState } from "react";
-import Output from "../components/Output";
 import "../components/type.css";
-import { Helmet } from 'react-helmet';
 
 const Form = () => {
   const [output, setOutput] = useState("");
@@ -92,19 +90,6 @@ const Form = () => {
             {output.replace(/"([^"]+)":/g, "$1:")}
           </div>
         </div>
-        {/* <Typewriter
-  
-              onInit={(typewriter)=> {
-          
-              typewriter
-                
-              .typeString(output.replace(/"([^"]+)":/g, '$1:'))
-                
-              .pauseFor(1000)
-              .deleteAll()
-              .start();
-              }}
-            /> */}
       </div>
     </div>
   );

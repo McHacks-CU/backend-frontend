@@ -4,8 +4,13 @@ import nltk
 
 # some_file.py
 import sys
+<<<<<<< HEAD
 # caution: path[0] is reserved for script path (or '' in REPL)
 # sys.path.insert(1, '../ai')
+=======
+
+sys.path.insert(1, '../ai')
+>>>>>>> main
 
 # from model import classify
 

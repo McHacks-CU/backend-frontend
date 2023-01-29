@@ -30,8 +30,8 @@ def classify(code, nltk):
   elif (classifications.classifications[0].prediction == 'safe'):
     return "Your code is safe"
   response = respond(code)
-  while (response == ""):
-    response = respond(code)
+  if (response == ""):
+    return "You should use prepared statements in order to escape your queries as well as validating your input"
   return "Your code is unsafe, here are some ways you can try to fix your code: \n" + response
   
 

@@ -7,7 +7,7 @@ const Typing = () => {
   useEffect(() => {
     const typed = new Typed(typeTarget.current, {
       strings: [
-        "Preventing injections before they occur",
+        "Preventing SQL injections before they occur",
         "'SELECT * FROM users WHERE username = ? AND password = ?', [username, password]",
       ],
       typeSpeed: 40,

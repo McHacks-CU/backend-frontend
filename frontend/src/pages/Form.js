@@ -12,7 +12,10 @@
   };
   ```
 */
+import { useState } from 'react';
+
 const Form =() => {
+  const [output, setOutput] = useState('');
   // code into form
   // form data is sent when submit button clicked
   // return message to be inserted into html
@@ -31,7 +34,7 @@ const Form =() => {
           text: data,
         })
     }).then((response) => response.json())
-    .then((data) => console.log(data));;
+    .then((data) => setOutput(data));;
   }
   return (
     <div id="form" className="h-screen bg-neutral-800 flex flex-row">
@@ -70,8 +73,8 @@ const Form =() => {
               </div>
             </form>
           </div>
-          <div className="flex-auto">
-            Response
+          <div className="flex-auto text-white">
+            {output}
           </div>
     </div>
   )

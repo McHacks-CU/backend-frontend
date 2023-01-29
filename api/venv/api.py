@@ -8,8 +8,11 @@ app = Flask(__name__)
 def form_example():
     # handle the POST request
     if request.method == 'POST':
-        body = request.form
-        print('body is : ' + str(body))
-        return '''The code sent to the backend is: {}'''.format(body)
+        try:
+            body = request.get_json()
+            print(body['text'])
+        except:
+            print("JSON is broken")
+        return '''The code was sent'''
     # handle get request
     return '''ERROR : 404, only POST req allowed or service not available'''

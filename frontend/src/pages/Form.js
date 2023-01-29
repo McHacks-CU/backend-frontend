@@ -16,16 +16,20 @@ const Form =() => {
   // code into form
   // form data is sent when submit button clicked
   // return message to be inserted into html
-  function onSubmit(e) {
-    e.preventDefault();
-    console.log(e.code)
+  function onSubmit(event) {
+    event.preventDefault();
+    console.log(event.currentTarget.elements.usernameInput.value)
+    var data = event.currentTarget.elements.usernameInput.value
+    console.log(data)
     var response = fetch('/form', {
         method: 'POST',
-        body: e,
         headers: {
-            'Accept': 'application/x-www-form-urlencoded',
-            'Content-Type': 'application/x-www-form-urlencoded	'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          text: data,
+        })
     });
     console.log(response);
   }
@@ -39,14 +43,16 @@ const Form =() => {
                     <label htmlFor="code" className="block text-sm font-medium text-gray-700">
                     </label>
                     <div className="mt-1">
-                      <textarea
+                      {/* <textarea
                         id="code"
                         name="code"
                         rows={20}
                         className="mt-1 block w-full rounded-md bg-gray-600 border-indigo-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-slate-200"
                         placeholder="Paste here"
                         defaultValue={''}
-                      />
+                      /> */}
+                      <label htmlFor="usernameInput">Username:</label>
+                      <textarea id="usernameInput" rows={20} defaultValue={''} placeholder="Paste here" className="mt-1 block w-full rounded-md bg-gray-600 border-indigo-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-slate-200" type="text" />
                     </div>
                   </div>
 

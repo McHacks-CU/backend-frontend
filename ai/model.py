@@ -44,11 +44,10 @@ def initialize():
   X, y = df["query"], df["intent"]
   intents = y.unique().tolist()
 
-  num_tests = 15
   ex_texts, ex_labels = [], []
   for intent in intents:
       y_temp = y[y == intent]
-      sample_indexes = y_temp.sample(n=num_tests, random_state=42).index
+      sample_indexes = y_temp.sample(n=127, random_state=42).index
       ex_texts += X[sample_indexes].tolist()
       ex_labels += y[sample_indexes].tolist()
 

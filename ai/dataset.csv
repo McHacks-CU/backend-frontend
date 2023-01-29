@@ -1911,7 +1911,7 @@ def get_user_info(user_id):
 
 user_info = get_user_info(1)
 print(user_info)
-",safe 
+",safe
 "import psycopg2
 
 def get_user_info(user_id):

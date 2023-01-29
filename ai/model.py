@@ -1,4 +1,3 @@
-
 import cohere
 from cohere.classify import Example
 from dotenv import load_dotenv
@@ -30,7 +29,6 @@ def classify(text):
 def initialize():
 
   load_dotenv()
-  print(os.getenv("API_KEY"))
 
   global co
   co = cohere.Client(os.getenv("API_KEY"))

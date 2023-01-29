@@ -16,18 +16,20 @@ init = False
 #     )
 #   return classifications.classifications[0].prediction
 
-def classify(text):
+def classify(code, nltk):
   if not init:
       initialize()
       
   classifications = co.classify(
       model='large',
-      inputs=[text],
+      inputs=[code, nltk],
       examples=examples
     )
-  if (classifications.classifications[0].prediction == 'safe'):
+  if (classifications.classifications[0].prediction != classifications.classifications[1].prediction):
+    return "Tests are inconclusive, please enter mode code"
+  elif (classifications.classifications[0].prediction == 'safe'):
     return "Your code is safe"
-  return respond(text)
+  return "You code is unsafe, here are some ways you can try to fix your code: \n" + respond(code)
   
 
 def initialize():
@@ -59,4 +61,4 @@ def initialize():
 # String query = "SELECT * FROM users WHERE id = " + userInput;
 # Statement stmt = conn.createStatement();
 # ResultSet rs = stmt.executeQuery(query);
-# '''))
+# ''', 'String query = "SELECT account_balance FROM user_data WHERE user_name = ? ";'))

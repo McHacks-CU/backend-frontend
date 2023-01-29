@@ -1,5 +1,5 @@
 import time
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 
 app = Flask(__name__)
@@ -10,9 +10,10 @@ def form_example():
     if request.method == 'POST':
         try:
             body = request.get_json()
-            print(body['text'])
+            text = body['text']
+            print(text)
         except:
-            print("JSON is broken")
-        return '''The code was sent'''
+            return jsonify(result='ERROR : 400, bad request')
+        return jsonify(result=text)
     # handle get request
-    return '''ERROR : 404, only POST req allowed or service not available'''
+    return jsonify(result='ERROR : 404, only POST req allowed or service not available')

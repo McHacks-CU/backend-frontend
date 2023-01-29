@@ -23,7 +23,7 @@ def classify(text):
       model='large',
       inputs=[text],
       examples=examples
-      )
+    )
   return (classifications.classifications[0].prediction == 'safe')
 
 def initialize():

@@ -21,7 +21,7 @@ const Form =() => {
     console.log(event.currentTarget.elements.usernameInput.value)
     var data = event.currentTarget.elements.usernameInput.value
     console.log(data)
-    var response = fetch('/form', {
+    fetch('/form', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -30,8 +30,8 @@ const Form =() => {
         body: JSON.stringify({
           text: data,
         })
-    });
-    console.log(response);
+    }).then((response) => response.json())
+    .then((data) => console.log(data));;
   }
   return (
     <div id="form" className="h-screen bg-gray-800 flex flex-row">

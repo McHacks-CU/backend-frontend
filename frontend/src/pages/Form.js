@@ -14,6 +14,7 @@
 */
 import { useState } from "react";
 import "../components/type.css";
+import Output from '../components/Output';
 
 const Form = () => {
   const [output, setOutput] = useState("");
@@ -21,6 +22,7 @@ const Form = () => {
   // form data is sent when submit button clicked
   // return message to be inserted into html
   function onSubmit(event) {
+    setOutput("");
     event.currentTarget.elements.submit.innerHTML = "Sending...";
     event.preventDefault();
     console.log(event.currentTarget.elements.usernameInput.value);
@@ -40,8 +42,9 @@ const Form = () => {
       .then((data) => setOutput(data.result));
     event.currentTarget.elements.submit.innerHTML = "Send";
   }
+
   return (
-    <div id="form" className="h-screen bg-neutral-800 flex flex-row">
+    <div id="form" className="h-screen w-full bg-neutral-800 flex flex-row">
       <div className="mt-5 md:col-span-2 md:mt-0 w-3/4">
         <form action="" onSubmit={onSubmit} method="POST">
           <div className="shadow sm:overflow-hidden sm:rounded-md">
@@ -67,7 +70,7 @@ const Form = () => {
                     id="usernameInput"
                     rows={20}
                     defaultValue={""}
-                    placeholder="Paste here"
+                    placeholder="Paste code here"
                     className="mt-1 block w-full rounded-md bg-neutral-800 border-slate-200 shadow-sm focus:border-red-300 focus:ring-red-300 sm:text-sm text-slate-200"
                     type="text"
                   />
@@ -85,12 +88,13 @@ const Form = () => {
           </div>
         </form>
       </div>
-      <div className="text-white mt-5 md:col-span-2 md:mt-0">
-        <div className="space-y-6 px-4 py-5 sm:p-6">
+      <div className="text-white mt-5 md:col-span-2 md:mt-0 w-1/4">
+        <div className="space-y-6 px-4 py-5 sm:p-6 flex flex-col break-words">
           <div>Response</div>
-          <div key={Math.random()} className="typed-out">
+          {/* <div key={Math.random()} className="">
             {output.replace(/"([^"]+)":/g, "$1:")}
-          </div>
+          </div> */}
+          <Output key={Math.random()} para={output.replace(/"([^"]+)":/g, "$1:")}/>
         </div>
       </div>
     </div>

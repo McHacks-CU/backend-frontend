@@ -8,17 +8,17 @@ const Output = (props) => {
   useEffect(() => {
     const typed = new Typed(typeTarget.current, {
       strings: [props.para],
-      typeSpeed: 40,
+      typeSpeed: 20,
       showCursor: false,
-      loop: true
+      loop: false
     });
 
     return () => {
       typed.destroy();
     };
-  }, []);
+  }, [props.para]);
 
-  return <span className="text-white text-3xl" ref={typeTarget} />;
+  return <span className="text-slate-200 text-lg" ref={typeTarget} />;
 };
 
 export default Output;

@@ -6,8 +6,8 @@ npm install react-scripts --save
 
 backend
 
-set FLASK_APP=main.py
-$env:FLASK_APP = "main.py"
+set FLASK_APP=api.py
+$env:FLASK_APP = "api.py"
 flask run
 
 

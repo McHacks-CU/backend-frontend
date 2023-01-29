@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, jsonify
 
 # some_file.py
 import sys
-# caution: path[0] is reserved for script path (or '' in REPL)
+
 sys.path.insert(1, '../ai')
 
 from model import classify

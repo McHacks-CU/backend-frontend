@@ -1,8 +1,9 @@
-
 import cohere
 from cohere.classify import Example
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 import pandas as pd
+import os
+from response import respond
 
 global init
 init = False
@@ -15,24 +16,30 @@ init = False
 #     )
 #   return classifications.classifications[0].prediction
 
-def classify(text):
+def classify(code, nltk):
   if not init:
       initialize()
       
   classifications = co.classify(
       model='large',
-      inputs=[text],
+      inputs=[code, nltk],
       examples=examples
     )
-  return (classifications.classifications[0].prediction == 'safe')
+  if (classifications.classifications[0].prediction != classifications.classifications[1].prediction):
+    return "Tests are inconclusive, please enter mode code"
+  elif (classifications.classifications[0].prediction == 'safe'):
+    return "Your code is safe"
+  return "You code is unsafe, here are some ways you can try to fix your code: \n" + respond(code)
+  
 
 def initialize():
 
-  config = dotenv_values(".env")  
-  global co
-  co = cohere.Client(config.get("API_KEY"))
+  load_dotenv()
 
-  df = pd.read_csv('dataset.csv', names=['query','intent'])
+  global co
+  co = cohere.Client(os.getenv("API_KEY"))
+
+  df = pd.read_csv('/Users/aekus/Documents/code/McHack/ai/dataset.csv', names=['query','intent'])
 
   X, y = df["query"], df["intent"]
   intents = y.unique().tolist()
@@ -50,9 +57,8 @@ def initialize():
   for txt, lbl in zip(ex_texts,ex_labels):
       examples.append(Example(txt,lbl))
 
-print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
-String query = ""SELECT user_id FROM user_data WHERE user_name = '""
-+ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
-+ ""' and user_password = '""
-+ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
-
+# print(classify('''String userInput = request.getParameter("user_id");
+# String query = "SELECT * FROM users WHERE id = " + userInput;
+# Statement stmt = conn.createStatement();
+# ResultSet rs = stmt.executeQuery(query);
+# ''', 'String query = "SELECT account_balance FROM user_data WHERE user_name = ? ";'))

@@ -1,13 +1,35 @@
+
 import cohere
 from cohere.classify import Example
 from dotenv import dotenv_values
 import pandas as pd
 
-examples = generateList()
+global init
+init = False
 
-def generateList():
+# def classify_text(text,examples):
+#   classifications = co.classify(
+#     model='large',
+#     inputs=[text],
+#     examples=examples
+#     )
+#   return classifications.classifications[0].prediction
+
+def classify(text):
+  if not init:
+      initialize()
+      
+  classifications = co.classify(
+      model='large',
+      inputs=[text],
+      examples=examples
+      )
+  return (classifications.classifications[0].prediction == 'safe')
+
+def initialize():
+
   config = dotenv_values(".env")  
-
+  global co
   co = cohere.Client(config.get("API_KEY"))
 
   df = pd.read_csv('dataset.csv',names=['query','intent'])
@@ -15,49 +37,22 @@ def generateList():
   X, y = df["query"], df["intent"]
   intents = y.unique().tolist()
 
+  num_tests = 15
   ex_texts, ex_labels = [], []
   for intent in intents:
-    y_temp = y[y == intent]
-    sample_indexes = y_temp.sample(n=int(len(X)/2), random_state=42).index
-    ex_texts += X[sample_indexes].tolist()
-    ex_labels += y[sample_indexes].tolist()
+      y_temp = y[y == intent]
+      sample_indexes = y_temp.sample(n=num_tests, random_state=42).index
+      ex_texts += X[sample_indexes].tolist()
+      ex_labels += y[sample_indexes].tolist()
 
-  generated_examples = list()
-
+  global examples
+  examples = list()
   for txt, lbl in zip(ex_texts,ex_labels):
-    generated_examples.append(Example(txt,lbl))
+      examples.append(Example(txt,lbl))
 
-  return generated_examples
+# print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
+# String query = ""SELECT user_id FROM user_data WHERE user_name = '""
+# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
+# + ""' and user_password = '""
+# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
 
-
-def classify_text(text):
-
-  classifications = co.classify(
-    model='large',
-    inputs=[text],
-    examples=examples
-  )
-
-  return classifications.classifications[0].prediction
-  
-
-print(classify_text('''import mysql.connector
-
-user_input = input("Enter a user ID: ")
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="password",
-    database="mydatabase"
-)
-
-cursor = db.cursor()
-
-query = "SELECT * FROM users WHERE id = %s"
-cursor.execute(query, (user_input,))
-
-result = cursor.fetchall()
-
-print(result)
-''', examples))

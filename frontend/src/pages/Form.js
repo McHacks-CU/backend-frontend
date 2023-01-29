@@ -18,8 +18,8 @@ const Form =() => {
   // return message to be inserted into html
   function onSubmit(e) {
     e.preventDefault();
-
-    fetch('/form', {
+    console.log(e.code)
+    var response = fetch('/form', {
         method: 'POST',
         body: e,
         headers: {
@@ -27,8 +27,7 @@ const Form =() => {
             'Content-Type': 'application/x-www-form-urlencoded	'
         },
     });
-    var data = Response.json();
-    console.log(data);
+    console.log(response);
   }
   return (
     <div id="form" className="h-screen bg-gray-800 flex flex-row">

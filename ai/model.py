@@ -29,7 +29,10 @@ def classify(code, nltk):
     return "Tests are inconclusive, please enter mode code, or change your code to be more precise"
   elif (classifications.classifications[0].prediction == 'safe'):
     return "Your code is safe"
-  return "Your code is unsafe, here are some ways you can try to fix your code: \n" + respond(code)
+  response = respond(code)
+  while (response == ""):
+    response = respond(code)
+  return "Your code is unsafe, here are some ways you can try to fix your code: \n" + response
   
 
 def initialize():
@@ -39,7 +42,7 @@ def initialize():
   global co
   co = cohere.Client(os.getenv("API_KEY"))
 
-  df = pd.read_csv('/Users/aekus/Documents/code/McHack/ai/dataset.csv', names=['query','intent'])
+  df = pd.read_csv('/Users/aekus/Documents/code/McHacks/ai/dataset.csv', names=['query','intent'])
 
   X, y = df["query"], df["intent"]
   intents = y.unique().tolist()

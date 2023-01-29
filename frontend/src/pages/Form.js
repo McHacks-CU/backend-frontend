@@ -14,7 +14,7 @@
 */
 import { useState } from "react";
 import "../components/type.css";
-import Output from '../components/Output';
+import Output from "../components/Output";
 
 const Form = () => {
   const [output, setOutput] = useState("");
@@ -22,7 +22,7 @@ const Form = () => {
   // form data is sent when submit button clicked
   // return message to be inserted into html
   function onSubmit(event) {
-    setOutput("");
+    setOutput("Processing...");
     event.currentTarget.elements.submit.innerHTML = "Sending...";
     event.preventDefault();
     console.log(event.currentTarget.elements.usernameInput.value);
@@ -82,7 +82,8 @@ const Form = () => {
                 type="submit"
                 id="submit"
                 className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                >Send
+              >
+                Send
               </button>
             </div>
           </div>
@@ -94,7 +95,10 @@ const Form = () => {
           {/* <div key={Math.random()} className="">
             {output.replace(/"([^"]+)":/g, "$1:")}
           </div> */}
-          <Output key={Math.random()} para={output.replace(/"([^"]+)":/g, "$1:")}/>
+          <Output
+            key={Math.random()}
+            para={output.replace(/"([^"]+)":/g, "$1:")}
+          />
         </div>
       </div>
     </div>

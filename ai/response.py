@@ -59,7 +59,7 @@ def respond(code):
     response = co.generate(
         model='command-medium-nightly',
         prompt = prompt,
-        max_tokens=400,
+        max_tokens=150,
         stop_sequences=["--"],
         temperature=0.75)
 

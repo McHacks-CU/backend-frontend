@@ -1,6 +1,6 @@
 import time
 from flask import Flask, request, render_template, jsonify
-# import nltk
+import nltk
 
 # some_file.py
 import sys
@@ -23,6 +23,26 @@ def form_example():
             return jsonify(result='ERROR : 400, bad request')
         # check code
         print(text)
+        keywords = ["query", "execute", "WHERE"] # keywords identifying sql
+        para = text
+        sent_tokens = nltk.sent_tokenize(para)
+        for sentence in sent_text:
+            tokenized_sent = [word.lower() for word in word_tokenize(sent)]
+            # if any item in the tokenized sentence is a keyword, append the original sentence
+            if any(keyw in tokenized_sent for keyw in keywords):
+                print(sentence)
+
+                
+        # fileinF = []
+        # for sent in fileinE:
+        #     # tokenize and lowercase tokens of the sentence
+        #     tokenized_sent = [word.lower() for word in word_tokenize(sent)]
+        #     # if any item in the tokenized sentence is a keyword, append the original sentence
+        #     if any(keyw in tokenized_sent for keyw in keywords):
+        #         fileinF.append(sent)
+
+
+
         return jsonify(result="This is sent from the backend")
 
         # if (not classify(text)):

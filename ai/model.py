@@ -1,8 +1,9 @@
 
 import cohere
 from cohere.classify import Example
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 import pandas as pd
+import os
 
 global init
 init = False
@@ -28,11 +29,13 @@ def classify(text):
 
 def initialize():
 
-  config = dotenv_values(".env")  
-  global co
-  co = cohere.Client(config.get("API_KEY"))
+  load_dotenv()
+  print(os.getenv("API_KEY"))
 
-  df = pd.read_csv('dataset.csv', names=['query','intent'])
+  global co
+  co = cohere.Client(os.getenv("API_KEY"))
+
+  df = pd.read_csv('/Users/aekus/Documents/code/McHack/ai/dataset.csv', names=['query','intent'])
 
   X, y = df["query"], df["intent"]
   intents = y.unique().tolist()
@@ -50,9 +53,9 @@ def initialize():
   for txt, lbl in zip(ex_texts,ex_labels):
       examples.append(Example(txt,lbl))
 
-print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
-String query = ""SELECT user_id FROM user_data WHERE user_name = '""
-+ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
-+ ""' and user_password = '""
-+ ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
+# print(classify('''"Codec ORACLE_CODEC = new OracleCodec();
+# String query = ""SELECT user_id FROM user_data WHERE user_name = '""
+# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""userID""))
+# + ""' and user_password = '""
+# + ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter(""pwd"")) +""'"";"'''))
 
